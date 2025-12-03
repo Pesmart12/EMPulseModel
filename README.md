@@ -4,9 +4,9 @@ This project implements a 2D Finite-Difference Time-Domain (FDTD) simulation of 
 
 Time reversal: the wave equation (for acoustics, electromagnetism, quantum wavefunctions) is time-symmetric --> If you record a wave leaving a source and then play the recording backward into the system, the wave will focus precisely back at the original emission point. This project simulates that process:
 
-  1.Forward Run
-    - Launch a short EM pulse from an interior source.
-    - Record the electric field E_z at boundary “detector” locations for all times.
+  1. Forward Run
+     - Launch a short EM pulse from an interior source.
+     - Record the electric field E_z at boundary “detector” locations for all times.
 
   2. Time-Reversed Run
      - Reset the fields.
