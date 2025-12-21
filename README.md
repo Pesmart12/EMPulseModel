@@ -10,15 +10,15 @@ Time reversal: the wave equation (for acoustics, electromagnetism, quantum wavef
 
 The simulations are based on **Maxwell’s equations** in the time domain:
 
-\[
+$$
 \nabla \times \mathbf{E} = -\frac{\partial \mathbf{B}}{\partial t}, \quad
 \nabla \times \mathbf{H} = \frac{\partial \mathbf{D}}{\partial t} + \mathbf{J}
-\]
+$$
 
 with constitutive relations:
-\[
+$$
 \mathbf{D} = \epsilon \mathbf{E}, \quad \mathbf{B} = \mu \mathbf{H}
-\]
+$$
 
 The system is discretized using a **Yee grid**, enabling stable and explicit time stepping of EM fields.
 
