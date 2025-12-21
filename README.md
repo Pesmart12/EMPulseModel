@@ -4,13 +4,61 @@ This project implements a 2D Finite-Difference Time-Domain (FDTD) simulation of 
 
 Time reversal: the wave equation (for acoustics, electromagnetism, quantum wavefunctions) is time-symmetric --> If you record a wave leaving a source and then play the recording backward into the system, the wave will focus precisely back at the original emission point. This project simulates that process:
 
-  1. Forward Run
-     - Launch a short EM pulse from an interior source.
-     - Record the electric field E_z at boundary “detector” locations for all times.
+---
 
-  2. Time-Reversed Run
-     - Reset the fields.
-     - Replay the recorded boundary fields in reverse time order.
-     - Observe the wave refocusing at the original source point.
+## Physical Model
 
-This replicates the operation of a time-reversal mirror for electromagnetic waves.
+The simulations are based on **Maxwell’s equations** in the time domain:
+
+\[
+\nabla \times \mathbf{E} = -\frac{\partial \mathbf{B}}{\partial t}, \quad
+\nabla \times \mathbf{H} = \frac{\partial \mathbf{D}}{\partial t} + \mathbf{J}
+\]
+
+with constitutive relations:
+\[
+\mathbf{D} = \epsilon \mathbf{E}, \quad \mathbf{B} = \mu \mathbf{H}
+\]
+
+The system is discretized using a **Yee grid**, enabling stable and explicit time stepping of EM fields.
+
+---
+
+## Methodology
+
+### 1. Forward Simulation
+- Emit a broadband EM pulse from a source
+- Propagate fields through a 2D or 3D domain
+- Record field values at discrete sensor locations
+
+### 2. Time-Reversal
+- Reverse recorded signals in time
+- Re-inject them into the simulation domain
+- Observe spatial and temporal refocusing at the source
+
+### 3. Inverse Modeling (ML-Assisted)
+- Use recorded fields as input data
+- Train a PyTorch model to:
+  - Predict source location
+  - Refine time-reversal reconstructions
+- Enables robustness to noise and sparse sensor layouts
+
+---
+
+## Features
+
+- FDTD solver using Yee discretization
+- Time-reversal electromagnetic propagation
+- Modular forward / inverse design
+- PyTorch-based inverse source localization
+- Extensible to:
+  - Multiple sources
+  - Noisy environments
+  - Dispersive or inhomogeneous media
+
+---
+
+## Author
+Pedro Martins
+
+
