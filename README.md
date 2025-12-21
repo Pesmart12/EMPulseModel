@@ -3,8 +3,6 @@
 
 EMPulseModel is a **computational electromagnetics project** that implements a **time-reversal electromagnetic (TR-EM) framework** using **finite-difference time-domain (FDTD)** simulations. The project studies EM wave propagation, sensor-based field recording, and time-reversed re-propagation leading to spatial refocusing at the original source location.
 
-This repository focuses exclusively on the **physics and numerics** of time-reversal electromagnetics.
-
 ---
 
 ## Overview
@@ -80,20 +78,15 @@ In homogeneous, lossless media, these equations admit wave solutions that are in
 
 ---
 
-## Why Time Reversal Works
+## Future Work
 
-Time-reversal focusing relies on:
-
-- Linearity of Maxwell’s equations
-- Time-reversal symmetry in lossless media
-- Reciprocity of electromagnetic wave propagation
-
-When these conditions are satisfied, the reversed wave retraces its original propagation paths, leading to constructive interference at the source.
+- Introduce ML Assistance  to accelerate the model.
 
 ---
 
-## Project Structure
+## Author
 
+Pedro Martins
 
 
 
