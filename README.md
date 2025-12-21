@@ -1,65 +1,99 @@
-# Time-Reversal Electromagnetic Pulse Focusing (FDTD Simulation)
+# EMPulseModel  
+**Time-Reversal Electromagnetic Pulse Focusing via FDTD**
 
-This project implements a 2D Finite-Difference Time-Domain (FDTD) simulation of electromagnetic wave propagation in the TMᶻ (oscilates perpendicular to the z direction in which it propogates) polarization, demonstrating time-reversal focusing—a phenomenon where EM waves recorded at a boundary can be played back in reverse to reconstruct and refocus the original pulse at its source.
+EMPulseModel is a **computational electromagnetics project** that implements a **time-reversal electromagnetic (TR-EM) framework** using **finite-difference time-domain (FDTD)** simulations. The project studies EM wave propagation, sensor-based field recording, and time-reversed re-propagation leading to spatial refocusing at the original source location.
 
-Time reversal: the wave equation (for acoustics, electromagnetism, quantum wavefunctions) is time-symmetric --> If you record a wave leaving a source and then play the recording backward into the system, the wave will focus precisely back at the original emission point. This project simulates that process:
+This repository focuses exclusively on the **physics and numerics** of time-reversal electromagnetics.
+
+---
+
+## Overview
+
+Maxwell’s equations in linear, lossless media are **time-reversal invariant**. As a result, electromagnetic waves recorded at a set of sensors can be reversed in time and re-emitted into the medium, causing energy to refocus at the original source location.
+
+This project demonstrates that principle numerically by:
+
+1. Simulating forward EM pulse propagation using FDTD  
+2. Recording fields at discrete sensor locations  
+3. Time-reversing the recorded signals  
+4. Re-propagating the reversed fields  
+5. Observing refocusing at the source position  
 
 ---
 
 ## Physical Model
 
-The simulations are based on **Maxwell’s equations** in the time domain:
+The simulations are based on Maxwell’s equations in the time domain:
 
 $$
-\nabla \times \mathbf{E} = -\frac{\partial \mathbf{B}}{\partial t}, \quad
+\nabla \times \mathbf{E} = -\frac{\partial \mathbf{B}}{\partial t},
+\qquad
 \nabla \times \mathbf{H} = \frac{\partial \mathbf{D}}{\partial t} + \mathbf{J}
 $$
 
 with constitutive relations:
 
 $$
-\mathbf{D} = \epsilon \mathbf{E}, \quad \mathbf{B} = \mu \mathbf{H}
+\mathbf{D} = \epsilon \mathbf{E}, \qquad
+\mathbf{B} = \mu \mathbf{H}
 $$
 
-The system is discretized using a **Yee grid**, enabling stable and explicit time stepping of EM fields.
+In homogeneous, lossless media, these equations admit wave solutions that are invariant under time reversal.
 
 ---
 
-## Methodology
+## Numerical Method
 
-### 1. Forward Simulation
-- Emit a broadband EM pulse from a source
-- Propagate fields through a 2D or 3D domain
-- Record field values at discrete sensor locations
+### Finite-Difference Time-Domain (FDTD)
 
-### 2. Time-Reversal
-- Reverse recorded signals in time
-- Re-inject them into the simulation domain
-- Observe spatial and temporal refocusing at the source
+- Spatial discretization using a **Yee grid**
+- Staggered electric and magnetic field components
+- Explicit time stepping
+- Stability enforced by the **Courant–Friedrichs–Lewy (CFL)** condition
 
-### 3. Inverse Modeling (ML-Assisted)
-- Use recorded fields as input data
-- Train a PyTorch model to:
-  - Predict source location
-  - Refine time-reversal reconstructions
-- Enables robustness to noise and sparse sensor layouts
+### Boundary Treatment
+
+- Absorbing boundary conditions to minimize artificial reflections
+- Grid resolution chosen relative to wavelength to control numerical dispersion
 
 ---
 
-## Features
+## Time-Reversal Methodology
 
-- FDTD solver using Yee discretization
-- Time-reversal electromagnetic propagation
-- Modular forward / inverse design
-- PyTorch-based inverse source localization
-- Extensible to:
-  - Multiple sources
-  - Noisy environments
-  - Dispersive or inhomogeneous media
+### Forward Propagation
+- A broadband EM pulse is emitted from a localized source
+- Fields propagate through the computational domain
+- Field values are recorded at sensor locations
+
+### Time Reversal
+- Recorded signals are reversed in time
+- Time-reversed signals are re-introduced at the sensor locations
+- Fields propagate backward through the domain
+
+### Refocusing
+- Energy refocuses at the original source location
+- Refocusing quality depends on:
+  - Bandwidth
+  - Sensor coverage
+  - Numerical dispersion
+  - Boundary reflections
 
 ---
 
-## Author
-Pedro Martins
+## Why Time Reversal Works
+
+Time-reversal focusing relies on:
+
+- Linearity of Maxwell’s equations
+- Time-reversal symmetry in lossless media
+- Reciprocity of electromagnetic wave propagation
+
+When these conditions are satisfied, the reversed wave retraces its original propagation paths, leading to constructive interference at the source.
+
+---
+
+## Project Structure
+
+
 
 
