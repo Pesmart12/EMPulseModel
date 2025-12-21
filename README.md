@@ -16,6 +16,7 @@ $$
 $$
 
 with constitutive relations:
+
 $$
 \mathbf{D} = \epsilon \mathbf{E}, \quad \mathbf{B} = \mu \mathbf{H}
 $$
