@@ -1,0 +1,44 @@
+# ─────────────────────────────────────────────
+#  em_fdtd_1d  |  config.yaml
+#  All physical and numerical parameters.
+#  Units: SI (metres, seconds, F/m, H/m)
+# ─────────────────────────────────────────────
+
+# ── Domain ────────────────────────────────────
+grid:
+  L: 1.0          # domain length [m]
+  nz: 500         # number of spatial cells
+  # dz = L / nz is derived in code (2e-3 m)
+  # dt = dz / (2 * c) enforced by solver      (Courant: S = 0.5)
+  n_steps: 2000   # total time steps
+
+# ── Source ────────────────────────────────────
+source:
+  z0_true: 0.35       # true source position [m]  (forward problem only)
+  f0: 1.5e9           # Ricker centre frequency [Hz]
+  t0_factor: 1.5      # t0 = t0_factor / f0  (wavelet delay, in units of 1/f0)
+  amplitude: 1.0      # known amplitude for forward run; treated as unknown in inversion
+
+# ── Medium ────────────────────────────────────
+medium:
+  eps_r: 1.0          # relative permittivity (free space)
+  mu_r: 1.0           # relative permeability  (free space)
+
+# ── Boundaries ────────────────────────────────
+boundaries:
+  type: mur           # first-order Mur ABC at z=0 and z=L
+
+# ── Inversion ─────────────────────────────────
+inversion:
+  n_candidates: 200           # number of z0 candidates in grid search
+  z_min: 0.05                 # search range left  [m]  (avoid boundary cells)
+  z_max: 0.95                 # search range right [m]
+  loss: mse                   # loss function: mse | mae
+
+# ── Output ────────────────────────────────────
+output:
+  save_traces: true           # save E_L(t) and E_R(t) to disk
+  traces_file: "traces.npz"
+  plot_loss_curve: true
+  plot_trace_fit: true
+  fig_dir: "figures/"
